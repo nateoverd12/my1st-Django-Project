@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+<div class="row">
+{% for show in shows %}
+    <div class="col-md-6">
+        <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ show.name }} - <small>{{ show.city }}</small></h5>
+            <p class="card-text">{{ show.price }} €/pers - on {{ show.date }}</p>
+            <h6 class="card-text">Left_seats : {{ show.left_seats }} </h6>
+            <a href="{% url 'booking' show.id %}" class="btn btn-primary">Purchase tickets</a>
+        </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {% if pages.prev > 0 %}
+        <li class="page-item">
+        <a class="page-link" href="{% url 'home' pages.prev %}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+        </a>
+        </li>
+        {% endif %}
+        {% if pages.next < total %}
+        <li class="page-item">
+        <a class="page-link" href="{% url 'home' pages.next %}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+        </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endblock %}
