@@ -7,23 +7,29 @@ from faker import Faker
 from django.db.models import F
 import random, requests, math
 
+import socket
+
+def init(request):
+    shows = Show.objects.order_by("date")[:6]
+    return render(request, 'init.html', {"shows": shows})
 
 def home(request, page=1):
-    # # ip = get_ip(request)
-    # ip ='24.124.1.80'
+    # ip = socket.gethostbyname(socket.gethostname())
+    # # # ip = get_ip(request)
+    # # ip ='24.124.1.80'
     # if ip is not None:
     #     g = GeoIP2()
     #     coord = g.lat_lon(ip)
     #     all_shows = Show.objects.all()
     #     all_shows = sorted(all_shows, key=lambda show: distance_km(float(show.gps_latitude), float(show.gps_longitude), float(coord[0]),float(coord[1])))
     # else:
-        # all_shows = Show.objects.order_by("date")
+    #     all_shows = Show.objects.order_by("date")
     all_shows = Show.objects.order_by("date")
     shows = all_shows[(page-1)*10:(page*10)]
     count = len(all_shows)/10
     total = count if count == int(count) else int(count)+1
     pages = {'prev': page-1,'next': page+1}
-    return render(request, 'home.html', {"shows": shows, "pages": pages, "total": total})
+    return render(request, 'page.html', {"shows": shows, "pages": pages, "total": total})
 
 def payment(request, id):
     show = Show.objects.get(id=id)

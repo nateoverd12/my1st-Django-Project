@@ -6,3 +6,4 @@
 ```python manage.py migrate```
 # if terminal ask to you about superuser, let's create it ; it'll be the admin informations for the admin interface
 # go on 'Admin' button to connect as admin and then you're on admin interface
+

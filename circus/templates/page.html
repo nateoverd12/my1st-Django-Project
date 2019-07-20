@@ -1,23 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}Liste par dates{% endblock %}
 
 {% block content %}
-<div class="row">
-{% for show in shows %}
-    <div class="col-md-6">
-        <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">{{ show.name }} - <small>{{ show.city }}</small></h5>
-            <p class="card-text">{{ show.price }} €/pers - on {{ show.date }}</p>
-            <h6 class="card-text">Left_seats : {{ show.left_seats }} </h6>
-            <a href="{% url 'booking' show.id %}" class="btn btn-primary">Purchase tickets</a>
-        </div>
-        </div>
-    </div>
-{% endfor %}
-</div>
 <nav aria-label="Page navigation example">
+    <p>pagination: </p>
     <ul class="pagination">
         {% if pages.prev > 0 %}
         <li class="page-item">
@@ -35,4 +22,5 @@
         {% endif %}
     </ul>
 </nav>
+{% include '_shows.html' %}
 {% endblock %}
