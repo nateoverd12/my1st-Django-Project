@@ -1,10 +1,11 @@
-# go on website
-# for the 1st time, go to /fixtures url and wait around a minute to get all datas and also:
-```python manage.py migrate```
+# Project explanation
+
+This Django Project was my first one, and a way to discover Django framework.
+After dealing with some Python reviewing and some courses about class, I learnt a bit on Django during a day and then starting this first project. At final, it takes me around 2 complete days to do that.
 
 # Getting started
 * Clone the repository.
-* Create a virtual environment (for instance named: 'myvenv')
+* Create a virtual environment (for instance, named: 'myvenv')
 
 `python -m venv myvenv`
 
@@ -21,6 +22,18 @@ or
 `pip install -r requirements.txt`
 
 * Open and complete my1stdjangoproject/settings.py with your db infos (I'm using mysql but you can change to something else) from lines 79 to 83
+ 
+* Fill database :
+
+```python manage.py makemigrations``` creates migration files based on your models
+
+```python manage.py migrate``` will create the tables in your db based on the migration files created
+
+then the terminal might asking you about a superuser: just create it and you'll be able to use the admin interface.
+If you don't do it now, you'll just have to write:
+```python manage.py createsuperuser``` (will create a superuser for your application in the database)
+
+Then, to get fakes but coherent datas, either go on /fixtures url (it'll take some minutes to get all datas due to one api), or source/import the fixtures.sql file.
 
 * Go ahead and run the application.
 
@@ -31,8 +44,3 @@ python manage.py runserver
 * Go to localhost
 
 ![local](https://user-images.githubusercontent.com/30196830/42422925-f308a002-830d-11e8-82e7-61d62c8a0774.png)
-
-* Admin tricks: 
-
-if terminal ask to you about superuser, let's create it ; it'll be the admin informations for the admin interface
-go on 'Admin' button to connect as admin and then you're on admin interface

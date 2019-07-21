@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.26, for Linux (x86_64)
 --
--- Host: localhost    Database: db_ch4
+-- Host: localhost    Database: db_name
 -- ------------------------------------------------------
 -- Server version	5.7.26-0ubuntu0.18.04.1
 
@@ -119,15 +119,6 @@ CREATE TABLE `auth_user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `auth_user`
---
-
-LOCK TABLES `auth_user` WRITE;
-/*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'pbkdf2_sha256$150000$LvyMUID8Ky5H$vhU01YF8CJ2461QBhbEcWHBI17VZ+t+3228q1fdOci0=','2019-07-21 18:24:44.188657',1,'adminDjPy','','','admin@django.py',1,1,'2019-07-17 07:49:16.087005');
-/*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `auth_user_groups`
