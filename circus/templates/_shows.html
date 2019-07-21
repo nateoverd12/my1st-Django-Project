@@ -4,7 +4,7 @@
         <div class="card">
         <div class="card-body">
             <h5 class="card-title">{{ show.name }} - <small>{{ show.city }}</small></h5>
-            <p class="card-text">{{ show.price }} €/pers - on {{ show.date }}</p>
+            <p class="card-text">{{ show.price }} €/peop. - on {{ show.date }}</p>
             <h6 class="card-text">Remaining seats : {{ show.left_seats }} </h6>
             <a href="{% url 'booking' show.id %}" class="btn btn-primary">Purchase tickets</a>
         </div>

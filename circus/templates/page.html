@@ -2,9 +2,9 @@
 
 {% block title %}
 {% if geoloc %}
-Proches de moi
+Close to me
 {% else %}
-Liste par dates
+Listed by dates
 {% endif %}
 {% endblock %}
 
@@ -20,14 +20,14 @@ Tous nos spectacles triés par dates :
     <ul class="pagination">
         {% if pages.prev > 0 %}
         <li class="page-item">
-        <a class="page-link" href="{% url 'dates' pages.prev %}" aria-label="Previous">
+        <a class="page-link" href="{% if geoloc %}{% url 'geoloc' pages.prev %}{% else %}{% url 'dates' pages.prev %}{% endif %}" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
         </a>
         </li>
         {% endif %}
         {% if pages.next < total %}
         <li class="page-item">
-        <a class="page-link" href="{% url 'dates' pages.next %}" aria-label="Next">
+        <a class="page-link" href="{% if geoloc %}{% url 'geoloc' pages.prev %}{% else %}{% url 'dates' pages.next %}{% endif %}" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
         </a>
         </li>
