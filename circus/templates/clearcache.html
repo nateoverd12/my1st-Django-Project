@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Clear Cache{% endblock %}
+
+{% block stylesheet %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/init.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="center">
+    <h5>It seems like you have already dismissed geolocation authorization.
+    Now, if you want to access to the closest reults, you just need to clear the browser cache or authorize goelocation in the browser option.</h5>
+    <a href="{% url 'dates' 1 %}"><h5>Otherwise, click here to come back to the chronological results.</h5></a> 
+</div>
+
+<form action="" name="geolocation" method="post" style="display:none;" id="hidden-form">
+    {% csrf_token %}
+    <input type="text" name="gps" value="" id="hidden-input"/>
+</form>
+{% endblock %}

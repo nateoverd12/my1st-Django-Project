@@ -19,7 +19,7 @@ def geoloc(request, page=1):
     elif 'latitude' in request.session:
         coords = [request.session['latitude'], request.session['longitude']]
     else:
-        return redirect('initpage')
+        return render(request, 'clearcache.html')
     all_shows = Show.objects.order_by("date")
     all_shows = sorted(all_shows, key=lambda show: distance_km(float(show.gps_latitude), float(show.gps_longitude), float(coords[0]),float(coords[1])))
     pages = {'prev': page-1,'next': page+1}

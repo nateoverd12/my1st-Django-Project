@@ -11,20 +11,20 @@
 <div class="row">
     <div class="col-12">
         <div class="card text-white bg-info mb-3 mt-3" >
-            <div class="card-header">{{ show.name }} - <small>{{ show.city }}</small></div>
+            <div class="card-header">{{ show.name }} - <small>, at {{ show.city }}</small></div>
             <div class="card-body">
-                <h5 class="card-title">{{ show.price }} €/pers</h5>
+                <h5 class="card-title">{{ show.price }} €/peop.</h5>
                 <p class="card-text">Remaining seats : {{ show.left_seats }} </p>
             </div>
         </div>
     </div>
 </div>
 {% if max_error %}
-<div class="alert alert-danger" role="alert">Impossible de réserver plus de places qu'il n'en reste...</div>
+<div class="alert alert-danger" role="alert">It's impossible to book more seats than Remaining...</div>
 {% endif %}
 
 <form method="POST" class="post-form">{% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="save btn btn-info">Réserver</button>
+    <button type="submit" class="save btn btn-info">Book</button>
 </form>
 {% endblock %}
