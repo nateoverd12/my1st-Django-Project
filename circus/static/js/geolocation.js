@@ -6,7 +6,7 @@ const options = {
   
   function success(pos) {
     let crd = pos.coords;
-    document.getElementById("hidden-form").action = window.location.href + 'page/1';
+    document.getElementById("hidden-form").action = window.location.href + 'date/1';
     document.getElementById("hidden-input").value = [crd.latitude, crd.longitude];
 
     document.forms['geolocation'].submit();

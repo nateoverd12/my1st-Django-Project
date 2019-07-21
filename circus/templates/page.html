@@ -16,7 +16,6 @@ Liste par dates
 {% endif %}
 <nav aria-label="Page navigation example">
     <ul class="pagination">
-        <p>pagination: </p>
         {% if pages.prev > 0 %}
         <li class="page-item">
         <a class="page-link" href="{% url 'dates' pages.prev %}" aria-label="Previous">
