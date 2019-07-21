@@ -1,6 +1,4 @@
 from django.shortcuts import redirect, render
-from django.http import HttpResponseRedirect
-from django.contrib.gis.geoip2 import GeoIP2
 from .models import Show, Booking
 from faker import Faker
 from .forms import BookingForm

@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'my1stdjangoproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'db_ch4',
-        'USER': 'nateoverd12',
-        'PASSWORD': '4yaChgPwd',
+        'NAME': 'your_db_name',
+        'USER': 'your_mysql_user',
+        'PASSWORD': 'your_mysql_password',
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -125,5 +125,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
-GEOIP_PATH = os.path.join(BASE_DIR, 'geoip')
