@@ -16,8 +16,10 @@ def geoloc(request, page=1):
         coords = request.POST.get("gps", "").split(",")
         request.session['latitude']=coords[0]
         request.session['longitude']=coords[1]
-    else:
+    elif request.session['latitude']:
         coords = [request.session['latitude'], request.session['longitude']]
+    else:
+        return redirect('initpage')
     all_shows = Show.objects.all()
     all_shows = sorted(all_shows, key=lambda show: distance_km(float(show.gps_latitude), float(show.gps_longitude), float(coords[0]),float(coords[1])))
     pages = {'prev': page-1,'next': page+1}
