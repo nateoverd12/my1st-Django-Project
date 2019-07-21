@@ -5,7 +5,7 @@ from .models import Show, Booking
 from faker import Faker
 from .forms import BookingForm
 
-import random, requests, math
+import random, requests, math ,datetime
 
 def init(request):
     shows = Show.objects.order_by("date")[:3]
@@ -26,16 +26,19 @@ def home(request, page=1):
     return render(request, 'page.html', {"shows": shows, "pages": pages, "total": total})
 
 def payment(request, id):
+    show = Show.objects.get(id=id)
     if request.method == "POST":
         form = BookingForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.author = request.user
-            post.paymentTime = timezone.now()
+            post.show = show
+            post.paymentTime = datetime.datetime.now()
             post.save()
+            show.left_seats=getattr(show, 'left_seats')-getattr(post, 'seats')
+            show.save(update_fields=['left_seats'])
+            return redirect('home', page=1)
     else:
         form = BookingForm()
-    show = Show.objects.get(id=id)
     return render(request, 'payment.html', {"show": show, 'form': form})
 
 
@@ -98,7 +101,7 @@ def loadFixtures(request):
                 firstname = fake.first_name(),
                 lastname = fake.last_name(),
                 seats = use_seats,
-                paymentTime = fake.date_between(start_date="-1y", end_date="today"),
+                paymentTime = fake.date_time_between(start_date="-1y", end_date="today", tzinfo=None),
                 show = target_show,
                 address = fake.address(),
                 city = fake.city(),
