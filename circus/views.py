@@ -3,37 +3,40 @@ from django.http import HttpResponseRedirect
 from django.contrib.gis.geoip2 import GeoIP2
 from .models import Show, Booking
 from faker import Faker
-# from ipware.ip import get_ip
-from django.db.models import F
+from .forms import BookingForm
+
 import random, requests, math
 
-import socket
-
 def init(request):
-    shows = Show.objects.order_by("date")[:6]
+    shows = Show.objects.order_by("date")[:3]
     return render(request, 'init.html', {"shows": shows})
 
 def home(request, page=1):
-    # ip = socket.gethostbyname(socket.gethostname())
-    # # # ip = get_ip(request)
-    # # ip ='24.124.1.80'
-    # if ip is not None:
-    #     g = GeoIP2()
-    #     coord = g.lat_lon(ip)
-    #     all_shows = Show.objects.all()
-    #     all_shows = sorted(all_shows, key=lambda show: distance_km(float(show.gps_latitude), float(show.gps_longitude), float(coord[0]),float(coord[1])))
-    # else:
-    #     all_shows = Show.objects.order_by("date")
-    all_shows = Show.objects.order_by("date")
+    if request.method=='POST':
+        coords = request.POST.get("gps", "").split(",")
+        all_shows = Show.objects.all()
+        all_shows = sorted(all_shows, key=lambda show: distance_km(float(show.gps_latitude), float(show.gps_longitude), float(coords[0]),float(coords[1])))
+        pages = False
+    else:
+        all_shows = Show.objects.order_by("date")
+        pages = {'prev': page-1,'next': page+1}
     shows = all_shows[(page-1)*10:(page*10)]
     count = len(all_shows)/10
     total = count if count == int(count) else int(count)+1
-    pages = {'prev': page-1,'next': page+1}
     return render(request, 'page.html', {"shows": shows, "pages": pages, "total": total})
 
 def payment(request, id):
+    if request.method == "POST":
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.paymentTime = timezone.now()
+            post.save()
+    else:
+        form = BookingForm()
     show = Show.objects.get(id=id)
-    return render(request, 'payment.html', {"show": show})
+    return render(request, 'payment.html', {"show": show, 'form': form})
 
 
 
@@ -60,7 +63,6 @@ def delete_everything(*argv):
         arg.objects.all().delete()
 
 def loadFixtures(request):
-    # delete_everything(Booking)
     delete_everything(Booking,Show)
     fake = Faker('fr_FR')
     for i in range(100):

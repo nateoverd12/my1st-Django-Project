@@ -14,7 +14,7 @@ class Booking(models.Model):
     firstname = models.CharField(max_length=30)
     lastname = models.CharField(max_length=30)
     seats = models.IntegerField()
-    paymentTime = models.DateField()
+    paymentTime = models.DateTimeField()
     show = models.ForeignKey(Show, on_delete=models.CASCADE)
     address = models.CharField(max_length=150)
     city = models.CharField(max_length=60)

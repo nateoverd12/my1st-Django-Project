@@ -2,10 +2,22 @@
 
 {% block title %}Accueil{% endblock %}
 
+{% block stylesheet %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/init.css' %}">
+{% endblock %}
+
 {% block content %}
-<div>
+<div id="center">
     <h6>Si vous souhaitez voir les offres les plus proches de votre position, merci d'accepter la requếte de géolocalisation ci-contre.</h6>
-    <a href="#"><h5>Cliquer pour voir toutes les offres triés par dates</h5></a> 
+    <a href="#"><h5>Sinon, cliquez ici pour voir toutes les offres triés par dates</h5></a> 
 </div>
-{% include '_shows.html' %}
+
+<form action="" name="geolocation" method="post" style="display:none;" id="hidden-form">
+    {% csrf_token %}
+    <input type="text" name="gps" value="" id="hidden-input"/>
+</form>
+
+{% load static %}
+<script src="{% static 'js/geolocation.js' %}"></script>
 {% endblock %}

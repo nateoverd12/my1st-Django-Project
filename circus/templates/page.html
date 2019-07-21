@@ -1,11 +1,19 @@
 {% extends 'base.html' %}
 
-{% block title %}Liste par dates{% endblock %}
+{% block title %}
+{% if pages %}
+Liste par dates
+{% else %}
+Proches de moi
+{% endif %}
+{% endblock %}
 
 {% block content %}
+{% if pages %}
+<h5>Tous nos spectacles triés par dates :</h5>
 <nav aria-label="Page navigation example">
-    <p>pagination: </p>
     <ul class="pagination">
+        <p>pagination: </p>
         {% if pages.prev > 0 %}
         <li class="page-item">
         <a class="page-link" href="{% url 'home' pages.prev %}" aria-label="Previous">
@@ -22,5 +30,8 @@
         {% endif %}
     </ul>
 </nav>
+{% else %}
+<h5>Les spectacles à venir autour de moi :</h5>
+{% endif %}
 {% include '_shows.html' %}
 {% endblock %}
