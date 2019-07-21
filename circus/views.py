@@ -32,7 +32,7 @@ def home(request, page=1):
     shows = all_shows[(page-1)*10:(page*10)]
     count = len(all_shows)/10
     total = count if count == int(count) else int(count)+1
-    return render(request, 'page.html', {"shows": shows, "pages": pages, "total": total "geoloc": False})
+    return render(request, 'page.html', {"shows": shows, "pages": pages, "total": total, "geoloc": False})
 
 def payment(request, id):
     show = Show.objects.get(id=id)
