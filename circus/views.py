@@ -14,9 +14,9 @@ def init(request):
 def geoloc(request, page=1):
     if request.method=='POST':
         coords = request.POST.get("gps", "").split(",")
-        request.session['latitude']=coords[0]
-        request.session['longitude']=coords[1]
-    elif request.session['latitude']:
+        request.session['latitude'] = coords[0]
+        request.session['longitude'] = coords[1]
+    elif 'latitude' in request.session:
         coords = [request.session['latitude'], request.session['longitude']]
     else:
         return redirect('initpage')
@@ -38,19 +38,23 @@ def home(request, page=1):
 
 def payment(request, id):
     show = Show.objects.get(id=id)
+    max_error = False
     if request.method == "POST":
         form = BookingForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            post.show = show
-            post.paymentTime = datetime.datetime.now()
-            post.save()
-            show.left_seats=getattr(show, 'left_seats')-getattr(post, 'seats')
-            show.save(update_fields=['left_seats'])
-            return render(request, 'success.html')
+            if post.seats<=getattr(show, 'left_seats'):
+                post.show = show
+                post.paymentTime = datetime.datetime.now()
+                post.save()
+                show.left_seats=getattr(show, 'left_seats')-getattr(post, 'seats')
+                show.save(update_fields=['left_seats'])
+                return render(request, 'success.html')
+            else:
+                max_error = True
     else:
         form = BookingForm()
-    return render(request, 'payment.html', {"show": show, 'form': form})
+    return render(request, 'payment.html', {"show": show, 'form': form, 'max_error': max_error})
 
 
 
@@ -105,22 +109,22 @@ def loadFixtures(request):
         )
     for j in range(1000):
         target_show = random.choice(Show.objects.all())
-        use_seats = random.randint(1,10)
+        seats_wanted = random.randint(1,10)
         actual_left = getattr(target_show, 'left_seats')
-        if actual_left>use_seats:
+        if actual_left>seats_wanted:
             book = Booking.objects.create(
                 firstname = fake.first_name(),
                 lastname = fake.last_name(),
-                seats = use_seats,
-                paymentTime = fake.date_time_between(start_date="-1y", end_date="today", tzinfo=None),
+                seats = seats_wanted,
+                paymentTime = fake.date_time_between(start_date="-1y", end_date="now", tzinfo=None),
                 show = target_show,
                 address = fake.address(),
                 city = fake.city(),
                 country = fake.country(),
             )
-            target_show.left_seats=(actual_left-use_seats)
+            target_show.left_seats=(actual_left-seats_wanted)
             target_show.save(update_fields=['left_seats'])
-    return HttpResponseRedirect("/page/1")
+    return redirect('initpage')
 
 french_cities = ('Paris',
                 'Lyon',

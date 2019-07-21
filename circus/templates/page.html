@@ -9,11 +9,13 @@ Liste par dates
 {% endblock %}
 
 {% block content %}
+<h5 class="mt-2">
 {% if geoloc %}
-<h5>Tous nos spectacles triés par dates :</h5>
+Les spectacles à venir autour de moi :
 {% else %}
-<h5>Les spectacles à venir autour de moi :</h5>
+Tous nos spectacles triés par dates :
 {% endif %}
+</h5>
 <nav aria-label="Page navigation example">
     <ul class="pagination">
         {% if pages.prev > 0 %}
