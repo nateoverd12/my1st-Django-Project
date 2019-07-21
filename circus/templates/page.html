@@ -1,16 +1,19 @@
 {% extends 'base.html' %}
 
 {% block title %}
-{% if pages %}
-Liste par dates
-{% else %}
+{% if geoloc %}
 Proches de moi
+{% else %}
+Liste par dates
 {% endif %}
 {% endblock %}
 
 {% block content %}
-{% if pages %}
+{% if geoloc %}
 <h5>Tous nos spectacles triés par dates :</h5>
+{% else %}
+<h5>Les spectacles à venir autour de moi :</h5>
+{% endif %}
 <nav aria-label="Page navigation example">
     <ul class="pagination">
         <p>pagination: </p>
@@ -30,8 +33,5 @@ Proches de moi
         {% endif %}
     </ul>
 </nav>
-{% else %}
-<h5>Les spectacles à venir autour de moi :</h5>
-{% endif %}
 {% include '_shows.html' %}
 {% endblock %}

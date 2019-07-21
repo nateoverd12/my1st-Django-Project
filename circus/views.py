@@ -11,7 +11,7 @@ def init(request):
     shows = Show.objects.order_by("date")[:3]
     return render(request, 'init.html', {"shows": shows})
 
-def geoloc(request):
+def geoloc(request, page=1):
     if request.method=='POST':
         coords = request.POST.get("gps", "").split(",")
         request.session['latitude']=coords[0]
@@ -20,8 +20,11 @@ def geoloc(request):
         coords = [request.session['latitude'], request.session['longitude']]
     all_shows = Show.objects.all()
     all_shows = sorted(all_shows, key=lambda show: distance_km(float(show.gps_latitude), float(show.gps_longitude), float(coords[0]),float(coords[1])))
+    pages = {'prev': page-1,'next': page+1}
     shows = all_shows[(page-1)*10:(page*10)]
-    return render(request, 'page.html', {"shows": shows, "pages": False})
+    count = len(all_shows)/10
+    total = count if count == int(count) else int(count)+1
+    return render(request, 'page.html', {"shows": shows, "pages": pages, "total": total, "geoloc": True})
 
 def home(request, page=1):
     all_shows = Show.objects.order_by("date")
@@ -29,7 +32,7 @@ def home(request, page=1):
     shows = all_shows[(page-1)*10:(page*10)]
     count = len(all_shows)/10
     total = count if count == int(count) else int(count)+1
-    return render(request, 'page.html', {"shows": shows, "pages": pages, "total": total})
+    return render(request, 'page.html', {"shows": shows, "pages": pages, "total": total "geoloc": False})
 
 def payment(request, id):
     show = Show.objects.get(id=id)

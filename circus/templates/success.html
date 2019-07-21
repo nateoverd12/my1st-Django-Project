@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmation de réservation{% endblock %}
+
+{% block stylesheet %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/init.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="center">
+    <h4>Nous vous confirmons que votre réservation a bien été prise en compte !</h4>
+    <a href="#"><p>Cliquez pour revenir aux résultats par dates</p></a> 
+</div>
+{% endblock %}
