@@ -17,7 +17,7 @@ def geoloc(request):
         request.session['latitude']=coords[0]
         request.session['longitude']=coords[1]
     else:
-        coords = [request.session.get('latitude', request.session.get('longitude'))]
+        coords = [request.session['latitude'], request.session['longitude']]
     all_shows = Show.objects.all()
     all_shows = sorted(all_shows, key=lambda show: distance_km(float(show.gps_latitude), float(show.gps_longitude), float(coords[0]),float(coords[1])))
     shows = all_shows[(page-1)*10:(page*10)]
