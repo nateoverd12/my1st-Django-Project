@@ -19,14 +19,14 @@ Liste par dates
         <p>pagination: </p>
         {% if pages.prev > 0 %}
         <li class="page-item">
-        <a class="page-link" href="{% url 'home' pages.prev %}" aria-label="Previous">
+        <a class="page-link" href="{% url 'dates' pages.prev %}" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
         </a>
         </li>
         {% endif %}
         {% if pages.next < total %}
         <li class="page-item">
-        <a class="page-link" href="{% url 'home' pages.next %}" aria-label="Next">
+        <a class="page-link" href="{% url 'dates' pages.next %}" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
         </a>
         </li>

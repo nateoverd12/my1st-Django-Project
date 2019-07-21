@@ -47,7 +47,7 @@ def payment(request, id):
             post.save()
             show.left_seats=getattr(show, 'left_seats')-getattr(post, 'seats')
             show.save(update_fields=['left_seats'])
-            return redirect('home', page=1)
+            return render(request, 'success.html')
     else:
         form = BookingForm()
     return render(request, 'payment.html', {"show": show, 'form': form})
