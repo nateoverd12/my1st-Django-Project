@@ -1,8 +1,3 @@
-# Project explanation
-
-This Django Project was my first one, and a way to discover Django framework.
-After dealing with some Python reviewing and some courses about class, I learnt a bit on Django during a day and then starting this first project. At final, it takes me around 2 complete days to do that.
-
 # Getting started
 * Clone the repository.
 * Create a virtual environment (for instance, named: 'myvenv')
